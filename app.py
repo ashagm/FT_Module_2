@@ -120,9 +120,11 @@ def save_qualifying_loans(qualifying_loans):
     csvpath = Path(csvpath)
     if not csvpath.exists():
         sys.exit(f"Oops! Can't find this path: {csvpath}")
-
-    return save_csv(csvpath, qualifying_loans)
-
+    elif qualifying_loans:
+        csvpath = questionary.confirm("Do you want to save the qualified loans?").ask()
+        return save_csv(csvpath, qualifying_loans)
+    else:
+        print("Not saving any loans, buhbye!")
 
 def run():
     """The main function for running the script."""
